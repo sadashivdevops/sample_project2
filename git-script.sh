@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Array of branch names
-branches=("Release-1" "Release-2" "Release-3" "Release-4" "Release-5")
+# Get the list of all branches
+branches=$(git branch -r | grep -v '\->' | sed 's/origin\///')
 
 # Loop through each branch
 for branch in $branches; do
@@ -12,6 +12,8 @@ for branch in $branches; do
     git add "${branch}.txt"
     git commit -m "Add file for branch ${branch}"
 
+    # Push the changes to the remote repository
+    git push origin "${branch}"
 done
 
 
